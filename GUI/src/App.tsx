@@ -1,14 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, ChevronDown, Sparkles, Star, TrendingUp, Command, History, X, ArrowRight } from 'lucide-react';
+import { Search, ChevronDown, Sparkles, Star, TrendingUp, Command, History, X, ArrowRight, Settings, Palette, Layout, Eye, Search as SearchIcon, Zap, Users } from 'lucide-react';
 import SearchResults from './components/SearchResults';
 import SearchOptions from './components/SearchOptions';
 import SearchSuggestions from './components/SearchSuggestions';
 import ThemeSwitcher from './components/ThemeSwitcher';
+import SocialFeatures from './components/SocialFeatures';
+import AnalyticsDashboard from './components/AnalyticsDashboard';
+import CollaborativeSession from './components/CollaborativeSession';
 import { performInvertedIndexSearch, performBooleanMatrixSearch, performBM25Search } from './utils/searchAlgorithms';
 import { loadCranfieldData } from './utils/dataLoader';
 import { Document, SearchResult, Particle } from './types';
 import QueryExpansion from './components/QueryExpansion';
 import RealTimeSuggestions from './components/RealTimeSuggestions';
+import SearchChatbot from './components/SearchChatbot';
+import AIFeatures from './components/AIFeatures';
+
+// Update the SearchResults component props interface
+interface SearchResultsProps {
+  results: SearchResult[];
+  isLoading: boolean;
+  searchMethod: string;
+  onResultSelect: (result: SearchResult) => void;
+}
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,6 +39,75 @@ function App() {
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
   const animationFrameRef = useRef<number>();
+  const [clusters, setClusters] = useState<any[]>([]);
+
+  // New UI Customization States
+  const [uiSettings, setUiSettings] = useState({
+    // Layout
+    layout: 'default', // default, compact, wide
+    sidebarPosition: 'right', // left, right, hidden
+    searchBarStyle: 'modern', // modern, minimal, classic
+    
+    // Animation
+    animationSpeed: 'normal', // slow, normal, fast
+    particleDensity: 'medium', // low, medium, high
+    hoverEffects: true,
+    
+    // Typography
+    fontSize: 'medium', // small, medium, large
+    fontFamily: 'inter', // inter, roboto, poppins
+    fontWeight: 'normal', // light, normal, bold
+    
+    // Colors
+    primaryColor: '#4F46E5',
+    secondaryColor: '#10B981',
+    accentColor: '#F59E0B',
+    
+    // Advanced Features
+    glassEffect: true,
+    blurIntensity: 'medium', // low, medium, high
+    borderRadius: 'medium', // small, medium, large
+    
+    // Accessibility
+    highContrast: false,
+    reducedMotion: false,
+    
+    // Results Display
+    resultsPerPage: 10,
+    gridView: false,
+    showThumbnails: true,
+    
+    // Search Experience
+    autoComplete: true,
+    searchHistory: true,
+    searchSuggestions: true,
+    
+    // Advanced Search
+    advancedFilters: false,
+    searchOperators: true,
+    fuzzySearch: true,
+    
+    // Personalization
+    savedSearches: [],
+    favoriteResults: [],
+    customTags: [],
+    
+    // Performance
+    lazyLoading: true,
+    infiniteScroll: true,
+    resultCaching: true
+  });
+
+  // New state variables for social and analytics features
+  const [showAnalytics, setShowAnalytics] = useState(false);
+  const [showCollaborativeSession, setShowCollaborativeSession] = useState(false);
+  const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
+  const [analyticsData, setAnalyticsData] = useState({
+    searches: [],
+    users: [],
+    trends: [],
+    performance: {}
+  });
 
   // Load data on component mount
   useEffect(() => {
@@ -219,14 +301,29 @@ function App() {
     }
   };
 
+  // New handlers for social features
   const handleShare = (result: SearchResult) => {
     // Implement share functionality
     console.log('Sharing result:', result);
   };
 
-  const handleBookmark = (result: SearchResult) => {
-    // Implement bookmark functionality
-    console.log('Bookmarking result:', result);
+  const handleComment = (result: SearchResult, comment: string) => {
+    // Implement comment functionality
+    console.log('Adding comment to result:', result, comment);
+  };
+
+  const handleRate = (result: SearchResult, rating: number) => {
+    // Implement rating functionality
+    console.log('Rating result:', result, rating);
+  };
+
+  const handleAnnotate = (result: SearchResult, annotation: string) => {
+    // Implement annotation functionality
+    console.log('Adding annotation to result:', result, annotation);
+  };
+
+  const handleClusterUpdate = (newClusters: any[]) => {
+    setClusters(newClusters);
   };
 
   return (
@@ -332,12 +429,68 @@ function App() {
           onFilterChange={setFilters}
         />
 
-        {/* Search Results */}
-        <SearchResults
-          results={searchResults}
-          isLoading={isLoading}
-          searchMethod={searchMethod}
+        {/* Search Results with Social Features */}
+        <div className="space-y-4">
+          <SearchResults
+            results={searchResults}
+            isLoading={isLoading}
+            searchMethod={searchMethod}
+            onResultSelect={setSelectedResult}
+          />
+          {selectedResult && (
+            <SocialFeatures
+              result={selectedResult}
+              onShare={handleShare}
+              onComment={handleComment}
+              onRate={handleRate}
+              onAnnotate={handleAnnotate}
+            />
+          )}
+        </div>
+
+        {/* Analytics Dashboard */}
+        {showAnalytics && (
+          <AnalyticsDashboard data={analyticsData} />
+        )}
+
+        {/* Collaborative Session */}
+        {showCollaborativeSession && (
+          <CollaborativeSession
+            sessionId="session-123"
+            onClose={() => setShowCollaborativeSession(false)}
+          />
+        )}
+
+        {/* Add AIFeatures */}
+        <AIFeatures
+          searchResults={searchResults}
+          onQueryUpdate={setSearchQuery}
+          onClusterUpdate={handleClusterUpdate}
         />
+
+        {/* Add SearchChatbot */}
+        <SearchChatbot
+          searchResults={searchResults}
+          onQueryUpdate={setSearchQuery}
+        />
+
+        {/* Action Buttons */}
+        <div className="flex justify-end gap-4">
+          <button
+            onClick={() => setShowAnalytics(!showAnalytics)}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg glass-effect hover:bg-opacity-80 transition-all"
+          >
+            <TrendingUp size={20} />
+            <span>Analytics</span>
+          </button>
+          <button
+            onClick={() => setShowCollaborativeSession(true)}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg glass-effect hover:bg-opacity-80 transition-all"
+          >
+            <Users size={20} />
+            <span>Start Session</span>
+          </button>
+        </div>
       </div>
 
       {/* Theme Switcher */}
