@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const API_KEY = 'AIzaSyCedi5qYv6c9bi88398pNn_-_RR-BZuRGs';
+const API_KEY = 'enter your key here';
 
 // Initialize the API with error handling
 let genAI: GoogleGenerativeAI;
