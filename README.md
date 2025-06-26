@@ -78,6 +78,10 @@ To get started with this project, follow these steps:
 - **LinkedIn**: [Omar Hany Darwish](https://www.linkedin.com/in/omardrwish/)
 - **Email**: darwishomar158@gmail.com
 
+### Omar Hazm
+
+- **GitHub**: [OmarHazm](https://github.com/OxHazem)
+- **Email**: darwishomar158@gmail.com
 ## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
