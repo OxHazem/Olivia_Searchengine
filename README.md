@@ -2,6 +2,12 @@
 
 📊 **Welcome to the Cranfield Data Collection Project!** 📊
 
+<!---->
+  <p align="center">
+    <img src="https://res.cloudinary.com/dl4vtrbqr/image/upload/v1750963564/bandicam_2025-06-26_21-44-43-609_g00gw4.jpg?raw=true" alt="Banner" width="100%" />
+  </p>
+
+
 ## 🌟 Project Overview
 
 This project aims to collect and analyze data from the Cranfield collection, a widely-used dataset in information retrieval research. The data consists of queries and their relevance judgments, which are crucial for evaluating the performance of information retrieval systems.
