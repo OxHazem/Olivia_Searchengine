@@ -81,7 +81,6 @@ To get started with this project, follow these steps:
 ### Omar Hazm
 
 - **GitHub**: [OmarHazm](https://github.com/OxHazem)
-- **Email**: darwishomar158@gmail.com
 ## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
