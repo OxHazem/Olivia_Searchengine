@@ -1,6 +1,6 @@
 # Cranfield Search Engine
 
-A modern, beautiful search engine implementation for the Cranfield dataset using React .This project implements various search algorithms including Inverted Index, Boolean Matrix, and BM25.
+A modern, beautiful search engine implementation for the Cranfield dataset using React and TypeScript. This project implements various search algorithms including Inverted Index, Boolean Matrix, and BM25.
 
 ## Features
 
@@ -81,3 +81,5 @@ src/
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
+
+This project is licensed under the MIT License - see the LICENSE file for details. 
